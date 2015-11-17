@@ -11,7 +11,7 @@ Details of the raw data, as unzipped from the file referenced above, can be foun
   - `README.md` -- This file.
   - `CodeBook.md` -- Decription of experiment data and steps taken to arrive at summarized, tidy data result file.
   - `run_analysis.R` -- R script to merge Test and Train datasets, apply Tidy Data principles, and summarize the data.
-  - `tidy_data.txt` -- The output file from the run_analysis.R script.
+  - `/data/UCI HAR Dataset/tidy_data.txt` -- The output file from the run_analysis.R script.
 
 -------------------------
 
