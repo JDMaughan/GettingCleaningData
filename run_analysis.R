@@ -1,5 +1,6 @@
 ## Use dplyr Library
 library(dplyr)
+library(data.table) ## To use setnames to rename variables to meaningful names
 
 ##
 ## "Test" data
@@ -64,6 +65,12 @@ activity.labels <- read.csv("./data/UCI HAR Dataset/activity_labels.txt", sep = 
 # Replace the activity codes in the trimmed down running
 # dataset with the labels from the activity labels dataset.
 run.data$activity_labels <- as.character(activity.labels[match(run.data$activity_labels, activity.labels$V1), 'V2'])
+
+## Clean up Variable (column) names so they make sense
+## Change "BodyBody" to "Body
+## replace "..." with underscore "_"
+setnames(run.data, colnames(run.data), gsub("BodyBody", "Body", colnames(run.data)))
+setnames(run.data, colnames(run.data), gsub("...", "_", colnames(run.data), fixed = TRUE))
 
 ## Group the run data by subject_id and activity
 ## Calculate the mean of all measurements
