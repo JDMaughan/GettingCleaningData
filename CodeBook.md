@@ -1,55 +1,156 @@
 ---
-title: "Codebook template"
-author: "Your name here"
-date: "The date here"
+title: "Codebook for Coursera Course Project: Getting and Cleaning Data"
+author: Jason Maughan
+date: November 17, 2015
 output:
   html_document:
     keep_md: yes
 ---
 
 ## Project Description
-Short description of the project
-
-##Study design and data processing
-
-###Collection of the raw data
-Description of how the data was collected.
-
-###Notes on the original (raw) data 
-Some additional notes (if avaialble, otherwise you can leave this section out).
-
-##Creating the tidy datafile
+The R analysis script, `run_analysis.R`, reads in processed experiment data and outputs it into a summary form.  
 
 ###Guide to create the tidy data file
-Description on how to create the tidy data file (1. download the data, ...)/
+The original data is located [here](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip ).  To reproduce analysis, perform these steps:
+
+1. Download and extract the experiment data into an R Studio project working directory, in it's own directory under the data directory:  `<working directory>/data/UCI HAR Dataset`.
+
+2. Verify these files are located in the .../UCI HAR Dataset/test directory:
+        * `./data/UCI HAR Dataset/test/X_test.txt`      Test data set
+        * `./data/UCI HAR Dataset/test/y_test.txt`      Test labels
+        * `./data/UCI HAR Dataset/test/subject_test.txt`Identifier of the subject who performed the activities.
+        
+3. Verify these files are located in the .../UCI HAR Dataset/train directory:
+        * `./data/UCI HAR Dataset/train/X_train.txt`    Train data set
+        * `./data/UCI HAR Dataset/train/y_train.txt`    Train labels
+        * `./data/UCI HAR Dataset/train/subject_.txt`   Identifier of the subject who performed the activies
+        
+4. Verify these files are located under the .../UCI HAR Dateset directory:
+        * `./data/UCI HAR Dataset/features.txt`         List of phone features for which measurements were taken
+        * `./data/UCI HAR Dataset/activity_labels.txt`  Index table for getting Activity Name give a class label (from y_train.txt or y_test.txt)
+        
+5.  Run the `run_analysis.R` script.
+
+6. The tidy summarization file will be located in `./data/UCI HAR Dataset/` directory.  The name of the file is `tidy_data.txt`
+        
 
 ###Cleaning of the data
-Short, high-level description of what the cleaning script does. [link to the readme document that describes the code in greater detail]()
+The `run_analysis.R` script read in the processed experiment data and performs to get it into summary form. The script itself is heavily commented for clarity.
 
-##Description of the variables in the tiny_data.txt file
-General description of the file including:
- - Dimensions of the dataset
- - Summary of the data
- - Variables present in the dataset
+* The Test and Train data sets are read in and merged into a single data frame.
+* The data columns are then given the names based on the `features.txt` file.
+* The dataset is narrowed by keeping only columns/variables that hold standard deviation or or mean measurements.  Other columns are removed
+* The activity identifiers (integers) are replaced with the human-readable activity labels found in the `activity_labels.txt` file.
+* Because the column names had invalid characters, the column names were modified to remove invalid characters and shorten them to a single underscore "_" character.  In addition, a duplicate phrase `BodyBody` was changed replaced with `Body`.
+* The data is then grouped by subject and activity. 
+* The mean for each measurement variable is calculated
+* Finally, the summary dataset is written to an output file described in step 6 above.
 
-(you can easily use Rcode for this, just load the dataset and provide the information directly form the tidy data file)
+For more detail, see the [README.md](https://github.com/JDMaughan/GettingCleaningData/blob/master/README.md) file.
 
-###Variable 1 (repeat this section for all variables in the dataset)
-Short description of what the variable describes.
+##Description of the summary data file
 
-Some information on the variable including:
- - Class of the variable
- - Unique values/levels of the variable
- - Unit of measurement (if no unit of measurement list this as well)
- - In case names follow some schema, describe how entries were constructed (for example time-body-gyroscope-z has 4 levels of descriptors. Describe these 4 levels). 
+Characteristics of the output file `tidy_data.txt`:
 
-(you can easily use Rcode for this, just load the dataset and provide the information directly form the tidy data file)
+* dim(run.data.summary)
+[1] 180  68
 
-####Notes on variable 1:
-If available, some additional notes on the variable not covered elsewehere. If no notes are present leave this section out.
+* names(run.data.summary)
+ [1] "subject_id"              "activity_labels"         "tBodyAcc.mean_X"         "tBodyAcc.mean_Y"         "tBodyAcc.mean_Z"        
+ [6] "tGravityAcc.mean_X"      "tGravityAcc.mean_Y"      "tGravityAcc.mean_Z"      "tBodyAccJerk.mean_X"     "tBodyAccJerk.mean_Y"    
+[11] "tBodyAccJerk.mean_Z"     "tBodyGyro.mean_X"        "tBodyGyro.mean_Y"        "tBodyGyro.mean_Z"        "tBodyGyroJerk.mean_X"   
+[16] "tBodyGyroJerk.mean_Y"    "tBodyGyroJerk.mean_Z"    "tBodyAccMag.mean.."      "tGravityAccMag.mean.."   "tBodyAccJerkMag.mean.." 
+[21] "tBodyGyroMag.mean.."     "tBodyGyroJerkMag.mean.." "fBodyAcc.mean_X"         "fBodyAcc.mean_Y"         "fBodyAcc.mean_Z"        
+[26] "fBodyAccJerk.mean_X"     "fBodyAccJerk.mean_Y"     "fBodyAccJerk.mean_Z"     "fBodyGyro.mean_X"        "fBodyGyro.mean_Y"       
+[31] "fBodyGyro.mean_Z"        "fBodyAccMag.mean.."      "fBodyAccJerkMag.mean.."  "fBodyGyroMag.mean.."     "fBodyGyroJerkMag.mean.."
+[36] "tBodyAcc.std_X"          "tBodyAcc.std_Y"          "tBodyAcc.std_Z"          "tGravityAcc.std_X"       "tGravityAcc.std_Y"      
+[41] "tGravityAcc.std_Z"       "tBodyAccJerk.std_X"      "tBodyAccJerk.std_Y"      "tBodyAccJerk.std_Z"      "tBodyGyro.std_X"        
+[46] "tBodyGyro.std_Y"         "tBodyGyro.std_Z"         "tBodyGyroJerk.std_X"     "tBodyGyroJerk.std_Y"     "tBodyGyroJerk.std_Z"    
+[51] "tBodyAccMag.std.."       "tGravityAccMag.std.."    "tBodyAccJerkMag.std.."   "tBodyGyroMag.std.."      "tBodyGyroJerkMag.std.." 
+[56] "fBodyAcc.std_X"          "fBodyAcc.std_Y"          "fBodyAcc.std_Z"          "fBodyAccJerk.std_X"      "fBodyAccJerk.std_Y"     
+[61] "fBodyAccJerk.std_Z"      "fBodyGyro.std_X"         "fBodyGyro.std_Y"         "fBodyGyro.std_Z"         "fBodyAccMag.std.."      
+[66] "fBodyAccJerkMag.std.."   "fBodyGyroMag.std.."      "fBodyGyroJerkMag.std.."
 
+###Variables in the summary data file
+- subject_id - The ID of the experiment participant.  A value from 1:30
+
+- activity_labels - The activity that the measurements (remaining variables) correspond to.  Possible values are
+        - `WALKING`
+        - `WALING_UPSTAIRS`
+        - `WALKING_DOWNSTAIRS`
+        - `SITTING`
+        - `STANDING`
+        - `LAYING`
+
+The following variables represent the mean of recorded data points (which are either a mean or standard deviation) for the given `subject_id` and `activity_label`.  Detailed description of the different measurements types, as well as how names were derived,  can be found in the `features_info.txt` file included in the [original data](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip ).
+
+- "tBodyAcc.mean_X"
+- "tBodyAcc.mean_Y"
+- "tBodyAcc.mean_Z"
+- "tGravityAcc.mean_X"
+- "tGravityAcc.mean_Y"
+- "tGravityAcc.mean_Z"
+- "tBodyAccJerk.mean_X"
+- "tBodyAccJerk.mean_Y"    
+- "tBodyAccJerk.mean_Z"
+- "tBodyGyro.mean_X"
+- "tBodyGyro.mean_Y"
+- "tBodyGyro.mean_Z"
+- "tBodyGyroJerk.mean_X"   
+- "tBodyGyroJerk.mean_Y"
+- "tBodyGyroJerk.mean_Z"
+- "tBodyAccMag.mean.."
+- "tGravityAccMag.mean.."
+- "tBodyAccJerkMag.mean.."
+- "tBodyGyroMag.mean.."
+- "tBodyGyroJerkMag.mean.."
+- "fBodyAcc.mean_X"
+- "fBodyAcc.mean_Y"
+- "fBodyAcc.mean_Z"        
+- "fBodyAccJerk.mean_X"
+- "fBodyAccJerk.mean_Y"
+- "fBodyAccJerk.mean_Z"
+- "fBodyGyro.mean_X"
+- "fBodyGyro.mean_Y"
+- "fBodyGyro.mean_Z"
+- "fBodyAccMag.mean.."
+- "fBodyAccJerkMag.mean.."
+- "fBodyGyroMag.mean.."
+- "fBodyGyroJerkMag.mean.."
+- "tBodyAcc.std_X" 
+- "tBodyAcc.std_Y"
+- "tBodyAcc.std_Z"
+- "tGravityAcc.std_X"
+- "tGravityAcc.std_Y"
+- "tGravityAcc.std_Z"
+- "tBodyAccJerk.std_X"
+- "tBodyAccJerk.std_Y"
+- "tBodyAccJerk.std_Z"
+- "tBodyGyro.std_X" 
+- "tBodyGyro.std_Y"
+- "tBodyGyro.std_Z"
+- "tBodyGyroJerk.std_X"
+- "tBodyGyroJerk.std_Y"
+- "tBodyGyroJerk.std_Z"
+- "tBodyAccMag.std.."
+- "tGravityAccMag.std.."
+- "tBodyAccJerkMag.std.."
+- "tBodyGyroMag.std.."
+- "tBodyGyroJerkMag.std.." 
+- "fBodyAcc.std_X"
+- "fBodyAcc.std_Y"
+- "fBodyAcc.std_Z"
+- "fBodyAccJerk.std_X"
+- "fBodyAccJerk.std_Y"
+- "fBodyAccJerk.std_Z"
+- "fBodyGyro.std_X"
+- "fBodyGyro.std_Y"
+- "fBodyGyro.std_Z"
+- "fBodyAccMag.std.."      
+- "fBodyAccJerkMag.std.."
+- "fBodyGyroMag.std.."
+- "fBodyGyroJerkMag.std.." 
+ 
 ##Sources
-Sources you used if any, otherise leave out.
+Details on the collection of original data can be found [here](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones).  It is recommended to review the README.md file found in this archive for complete study design details.
 
-##Annex
-If you used any code in the codebook that had the echo=FALSE attribute post this here (make sure you set the results parameter to 'hide' as you do not want the results to show again)
