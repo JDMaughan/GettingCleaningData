@@ -55,23 +55,13 @@ Characteristics of the output file `tidy_data.txt`:
 * dim(run.data.summary)
 [1] 180  68
 
-* names(run.data.summary)
- [1] "subject_id"              "activity_labels"         "tBodyAcc.mean_X"         "tBodyAcc.mean_Y"         "tBodyAcc.mean_Z"        
- [6] "tGravityAcc.mean_X"      "tGravityAcc.mean_Y"      "tGravityAcc.mean_Z"      "tBodyAccJerk.mean_X"     "tBodyAccJerk.mean_Y"    
-[11] "tBodyAccJerk.mean_Z"     "tBodyGyro.mean_X"        "tBodyGyro.mean_Y"        "tBodyGyro.mean_Z"        "tBodyGyroJerk.mean_X"   
-[16] "tBodyGyroJerk.mean_Y"    "tBodyGyroJerk.mean_Z"    "tBodyAccMag.mean.."      "tGravityAccMag.mean.."   "tBodyAccJerkMag.mean.." 
-[21] "tBodyGyroMag.mean.."     "tBodyGyroJerkMag.mean.." "fBodyAcc.mean_X"         "fBodyAcc.mean_Y"         "fBodyAcc.mean_Z"        
-[26] "fBodyAccJerk.mean_X"     "fBodyAccJerk.mean_Y"     "fBodyAccJerk.mean_Z"     "fBodyGyro.mean_X"        "fBodyGyro.mean_Y"       
-[31] "fBodyGyro.mean_Z"        "fBodyAccMag.mean.."      "fBodyAccJerkMag.mean.."  "fBodyGyroMag.mean.."     "fBodyGyroJerkMag.mean.."
-[36] "tBodyAcc.std_X"          "tBodyAcc.std_Y"          "tBodyAcc.std_Z"          "tGravityAcc.std_X"       "tGravityAcc.std_Y"      
-[41] "tGravityAcc.std_Z"       "tBodyAccJerk.std_X"      "tBodyAccJerk.std_Y"      "tBodyAccJerk.std_Z"      "tBodyGyro.std_X"        
-[46] "tBodyGyro.std_Y"         "tBodyGyro.std_Z"         "tBodyGyroJerk.std_X"     "tBodyGyroJerk.std_Y"     "tBodyGyroJerk.std_Z"    
-[51] "tBodyAccMag.std.."       "tGravityAccMag.std.."    "tBodyAccJerkMag.std.."   "tBodyGyroMag.std.."      "tBodyGyroJerkMag.std.." 
-[56] "fBodyAcc.std_X"          "fBodyAcc.std_Y"          "fBodyAcc.std_Z"          "fBodyAccJerk.std_X"      "fBodyAccJerk.std_Y"     
-[61] "fBodyAccJerk.std_Z"      "fBodyGyro.std_X"         "fBodyGyro.std_Y"         "fBodyGyro.std_Z"         "fBodyAccMag.std.."      
-[66] "fBodyAccJerkMag.std.."   "fBodyGyroMag.std.."      "fBodyGyroJerkMag.std.."
+* class(run.data.summary)
+[1] "grouped_df" "tbl_df"     "tbl"        "data.frame"
 
-###Variables in the summary data file
+* object.size(run.data.summary)
+111336 bytes
+
+###Summary File Variables
 - subject_id - The ID of the experiment participant.  A value from 1:30
 
 - activity_labels - The activity that the measurements (remaining variables) correspond to.  Possible values are
